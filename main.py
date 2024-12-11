@@ -73,7 +73,7 @@ def process_images(
     window_height,
 ):
 
-    if vertical_shift > 0:
+    if vertical_shift >= 0:
         height, width, channels = image_array_l.shape
         height_offset = int(height * vertical_shift)
         if height_offset + window_height > height:
@@ -85,13 +85,13 @@ def process_images(
             image_array_r, window_height, height_offset
         )
 
-    if horizontal_shift > 0:
+    if horizontal_shift >= 0:
         height, width, channels = image_array_l.shape
         N = int(width * horizontal_shift)
         image_array_l = crop_and_append(image_array_l, N)
         image_array_r = crop_and_append(image_array_r, N)
 
-    if right_eye_rotation > 0:
+    if right_eye_rotation >= 0:
         height, width, channels = image_array_l.shape
         N = int(width * right_eye_rotation)
         image_array_r = crop_and_append(image_array_r, N)
