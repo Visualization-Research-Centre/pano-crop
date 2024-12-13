@@ -52,7 +52,6 @@ def vertical_crop_with_fixed_height(image_array, window_height, height_offset):
 
     return top_crop
 
-
 def join(image_array_l, image_array_r):
 
     # Get the dimensions of the image
@@ -71,13 +70,25 @@ def process_images(
     horizontal_shift,
     right_eye_rotation,
     window_height,
+    treat_as_center=False,
+    cut_from_bottom=False
 ):
 
     if vertical_shift >= 0:
         height, width, channels = image_array_l.shape
-        height_offset = int(height * vertical_shift)
+        if vertical_shift < 1:
+            height_offset = int(height * vertical_shift)
+        else:
+            height_offset = int(vertical_shift)
+        if cut_from_bottom:
+            print(f"Cutting from bottom")
+            height_offset = height - height_offset - window_height
+        if height_offset < 0:
+            raise ValueError("Vertical offset is negative")
         if height_offset + window_height > height:
-            print("Error: The vertical shift is too large")
+            raise ValueError("Window height + vertical offset is greater than the image height")
+            
+        print(f"Height offset: {height_offset}pixels")
         image_array_l = vertical_crop_with_fixed_height(
             image_array_l, window_height, height_offset
         )
@@ -87,13 +98,26 @@ def process_images(
 
     if horizontal_shift >= 0:
         height, width, channels = image_array_l.shape
-        N = int(width * horizontal_shift)
+        if horizontal_shift < 1:
+            N = int(width * horizontal_shift)
+        else:
+            N = int(horizontal_shift)
+        if treat_as_center:
+            if N > width / 2:
+                N -= int(width / 2)
+            else:
+                N += int(width / 2)
+        print(f"Horizontal shift: {N}pixels")
         image_array_l = crop_and_append(image_array_l, N)
         image_array_r = crop_and_append(image_array_r, N)
 
     if right_eye_rotation >= 0:
         height, width, channels = image_array_l.shape
-        N = int(width * right_eye_rotation)
+        if right_eye_rotation < 1:
+            N = int(width * right_eye_rotation)
+        else:
+            N = int(right_eye_rotation)
+        print(f"Right eye rotation: {N}pixels")
         image_array_r = crop_and_append(image_array_r, N)
 
     return image_array_l, image_array_r
@@ -167,6 +191,8 @@ if __name__ == "__main__":
                         row["horizontal_shift"],
                         row["right_eye_rotation"],
                         row["window_height"],
+                        treat_as_center=isValid(row["horizontal_shift_to_center"]),
+                        cut_from_bottom=isValid(row["vertical_crop_from_bottom"])
                     )
 
                     # if args.join:
