@@ -108,7 +108,7 @@ def process_images(
         else:
             N = int(horizontal_shift)
         if treat_as_center:
-            shift = int(width / 2) - N
+            shift = N - int(width / 2)
             print(f"Centering around px: {N}")
         else:
             shift = N
