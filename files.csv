@@ -1,3 +1,3 @@
-left,right,output,horizontal_shift,vertical_shift,right_eye_rotation,window_height,process
-AP14_10_dnATL_Indo_S13-1L5_align_1.tif,AP14_10_dnATL_Indo_S13-1R5_align_1.tif,AP14_10_dnATL_Indo_S13-1.png,0.2,0.1,0.02,2048,0
-AP14_10_dnATL_Indo_S13-1L5_align_1.tif,AP14_10_dnATL_Indo_S13-1R5_align_1.tif,AP14_10_dnATL_Indo_S13-2.png,0.2,0.2,0.4,2048,true
+left,right,output,horizontal_shift,to_center,vertical_crop,from_bottom,window_height,zero_point_l,zero_point_r,process
+AP14_10_dnATL_Indo_S13-1L5_align_1.tif,AP14_10_dnATL_Indo_S13-1R5_align_1.tif,AP14_10_dnATL_Indo_S13-1.png,10000,1,200,0,2048,6334,6345,0
+AP14_10_dnATL_Indo_S13-1L5_align_1.tif,AP14_10_dnATL_Indo_S13-1R5_align_1.tif,AP14_10_dnATL_Indo_S13-2.png,2444,0,1000,1,2048,356,379,1
