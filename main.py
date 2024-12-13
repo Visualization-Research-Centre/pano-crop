@@ -83,9 +83,9 @@ def process_images(
             vertical_shift = int(vertical_shift)
             
         if cut_from_bottom:
-            height_offset = height - vertical_shift - window_height
+            height_offset = vertical_shift - window_height
             if height_offset < 0:
-                raise ValueError("Vertical offset is negative")
+                raise ValueError("Window height + vertical offset is less than 0")
             print(f"Cutting from bottom: {vertical_shift} px")
         else:
             height_offset = vertical_shift
